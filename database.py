@@ -1,0 +1,18 @@
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DB_CONFIG = {
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT", 5432),
+    "dbname": os.getenv("DB_NAME", "notes"),
+    "user": os.getenv("DB_USER", "atomr"),
+    "password": os.getenv("DB_PASSWORD", "1234"),
+}
+
+
+def get_connection():
+    return psycopg2.connect(**DB_CONFIG, cursor_factory=RealDictCursor)
